@@ -129,14 +129,13 @@ export default {
     async fileHandle() {
       let formData = new FormData();
       formData.append("image", this.files[0]);
-      console.log(UPLOAD_IMAGE);
-      await this.$apollo.mutate({
+      const { data } = await this.$apollo.mutate({
         mutation: UPLOAD_IMAGE,
         variables: {
           file: this.files[0]
         }
       });
-      this.image = newImage;
+      this.image = data.singleUpload.imageURL;
 
       // axios({
       //   url: "http://localhost:3000/imageUpload",
