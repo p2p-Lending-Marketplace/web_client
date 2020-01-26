@@ -2,8 +2,36 @@
   <div class="Navbar">
     <!-- <v-app id="inspire"> -->
     <v-navigation-drawer v-model="drawer" app clipped>
-      <v-list dense>
-        <v-list-item v-for="item in items" :key="item.text" link>
+      <!-- admin -->
+      <v-list dense v-if="roleLogin === 'admin'">
+        <v-list-item
+          v-for="item in adminItems"
+          :key="item.text"
+          :to="item.to"
+          @click.prevent="drawer = false"
+        >
+          <v-list-item-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>{{ item.text }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item link class="mt-5">
+          <v-list-item-action>
+            <v-icon color="grey darken-1">mdi-settings</v-icon>
+          </v-list-item-action>
+          <v-list-item-title
+            class="grey--text text--darken-1"
+            @click.prevent="handleLogout"
+            >Sign Out</v-list-item-title
+          >
+        </v-list-item>
+      </v-list>
+      <!-- member -->
+      <v-list dense v-if="roleLogin === 'member'">
+        <v-list-item v-for="item in memberItems" :key="item.text" link>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -53,13 +81,26 @@ export default {
   name: "Navbar",
   data() {
     return {
+      roleLogin: "admin",
       drawer: false,
-      items: [
+      memberItems: [
         { icon: "trending_up", text: "Current-Application" }
         // { icon: "subscriptions", text: "Subscriptions" },
         // { icon: "history", text: "History" },
         // { icon: "featured_play_list", text: "Playlists" },
         // { icon: "watch_later", text: "Watch Later" }
+      ],
+      adminItems: [
+        {
+          icon: "add",
+          text: "Add-Fintech",
+          to: "/add-fintech"
+        },
+        {
+          icon: "trending_up",
+          text: "Finteches",
+          to: "/admin"
+        }
       ]
     };
   },
