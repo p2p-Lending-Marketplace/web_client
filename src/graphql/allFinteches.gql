@@ -1,0 +1,10 @@
+query getAllFinteches{
+    getAllFinteches{
+        _id
+        company_name
+        description
+        min_interest
+        max_interest
+        logoURL
+    }
+}

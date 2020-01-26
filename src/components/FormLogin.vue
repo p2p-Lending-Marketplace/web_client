@@ -1,41 +1,5 @@
 <template>
   <div class="FormLogin">
-    <!-- <v-card>
-      <div class="form-wrapper">
-        <v-form ref="form" v-model="valid" lazy-validation>
-          <v-text-field
-            v-model="userName"
-            :counter="5"
-            :rules="userNameRules"
-            label="UserName"
-            required
-            type="text"
-          ></v-text-field>
-
-          <v-text-field
-            v-model="password"
-            :counter="6"
-            :rules="passwordRules"
-            label="Password"
-            required
-            type="password"
-          ></v-text-field>
-
-          <v-btn
-            :disabled="!valid"
-            color="success"
-            class="mr-4"
-            @click="goSignIn"
-          >
-            Sign In
-          </v-btn>
-
-          <v-btn color="error" class="mr-4" @click="resetForm">
-            Reset Form
-          </v-btn>
-        </v-form>
-      </div>
-    </v-card> -->
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="8" md="4">
@@ -84,6 +48,8 @@
 </template>
 
 <script>
+import gql from "graphql-tag";
+
 export default {
   name: "FormLogin",
   data() {
@@ -92,12 +58,12 @@ export default {
       userName: "",
       userNameRules: [
         v => !!v || "UserName is required",
-        v => (v && v.length >= 5) || "UserName must be less than 5 characters"
+        v => (v && v.length >= 5) || "UserName must be higher than 5 characters"
       ],
       password: "",
       passwordRules: [
         v => !!v || "Password is required",
-        v => (v && v.length > 6) || "Password minimum 6 characters"
+        v => (v && v.length >= 5) || "Password minimum 5 characters"
       ]
     };
   },
@@ -106,6 +72,7 @@ export default {
       if (this.$refs.form.validate()) {
         alert(this.userName, this.password);
         this.$store.commit("USER_LOGIN", true);
+        this.$router.push("/admin");
       }
     },
     resetForm() {
@@ -114,7 +81,8 @@ export default {
     // resetValidation () {
     //   this.$refs.form.resetValidation()
     // },
-  }
+  },
+  apollo: {}
 };
 </script>
 

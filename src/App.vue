@@ -5,6 +5,7 @@
       <router-view />
     </v-content>
     <footer-component />
+    <vue-snotify></vue-snotify>
   </v-app>
 </template>
 
