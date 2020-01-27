@@ -72,7 +72,7 @@ export default {
       if (this.$refs.form.validate()) {
         alert(this.userName, this.password);
         this.$store.commit("USER_LOGIN", true);
-        this.$router.push("/admin");
+        this.$router.push("/fintech");
       }
     },
     resetForm() {

@@ -1,0 +1,10 @@
+query getFintechById($id: ID!) {
+  getFintechById(id: $id) {
+    _id
+    company_name
+    description
+    min_interest
+    max_interest
+    logoURL
+  }
+}

@@ -31,7 +31,12 @@
       </v-list>
       <!-- member -->
       <v-list dense v-if="roleLogin === 'member'">
-        <v-list-item v-for="item in memberItems" :key="item.text" link>
+        <v-list-item
+          v-for="item in memberItems"
+          :key="item.text"
+          :to="item.to"
+          @click.prevent="drawer = false"
+        >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -81,10 +86,10 @@ export default {
   name: "Navbar",
   data() {
     return {
-      roleLogin: "admin",
+      roleLogin: "member",
       drawer: false,
       memberItems: [
-        { icon: "trending_up", text: "Current-Application" }
+        { icon: "trending_down", text: "Current-Application", to: "/listuser" }
         // { icon: "subscriptions", text: "Subscriptions" },
         // { icon: "history", text: "History" },
         // { icon: "featured_play_list", text: "Playlists" },
@@ -94,12 +99,12 @@ export default {
         {
           icon: "add",
           text: "Add-Fintech",
-          to: "/add-fintech"
+          to: "/fintech/add-fintech"
         },
         {
           icon: "trending_up",
           text: "Finteches",
-          to: "/admin"
+          to: "/fintech"
         }
       ]
     };
