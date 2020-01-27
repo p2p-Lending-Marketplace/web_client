@@ -87,11 +87,13 @@
                 >Reset Form</v-btn
               >
             </div>
-            <!-- <div v-if="!add">
-            <v-btn color="success" @click="editProduct">Edit</v-btn>
-            <v-btn class="ml-3" color="warning" @click="resetForm">Reset Form</v-btn>
-            <v-btn class="ml-3" dark color="red" @click="deleteProduct">Delete</v-btn>
-          </div> -->
+            <div v-if="!add">
+              <v-btn color="success" @click="editFintech">Edit</v-btn>
+              <v-btn class="ml-3" color="warning" @click="resetForm"
+                >Reset Form</v-btn
+              >
+              <!-- <v-btn class="ml-3" dark color="red" @click="deleteProduct">Delete</v-btn> -->
+            </div>
           </v-form>
         </v-col>
       </v-row>
@@ -103,12 +105,15 @@
 // import gql from "graphql-tag";
 import UPLOAD_IMAGE from "../graphql/uploadImage.gql";
 import ADD_FINTECH from "../graphql/addFintech.gql";
+import UPDATE_FINTECH from "../graphql/updateFintech.gql";
 import FETCH_FINTECH from "../graphql/allFinteches.gql";
+import ONE_FINTECH from "../graphql/oneFintech.gql";
 
 export default {
-  name: "AddFintech",
+  name: "FintechForm",
   data() {
     return {
+      id: "",
       loading: false,
       add: true,
       valid: true,
@@ -147,6 +152,50 @@ export default {
         this.submitForm();
       }
     },
+    editFintech() {
+      this.$apollo
+        .mutate({
+          mutation: UPDATE_FINTECH,
+          variables: {
+            id: this.id,
+            company_name: this.companyName,
+            description: this.description,
+            min_interest: this.minInterest,
+            max_interest: this.maxInterest,
+            logoURL: this.image
+          },
+          update: (store, { data: { updateFintechData } }) => {
+            // Read the data from our cache for this query.
+            const data = store.readQuery({ query: UPDATE_FINTECH });
+            // Add our tag from the mutation to the end
+            data.getAllFinteches.push(updateFintechData);
+            // Write our data back to the cache.
+            store.writeQuery({ query: UPDATE_FINTECH, data });
+          }
+        })
+        .then(data => {
+          this.$snotify.success(`Success Update Fintech`, {
+            timeout: 3000,
+            showProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            position: "leftTop"
+          });
+          this.$router.push("/fintech");
+          this.resetForm();
+        })
+        .catch(err => {
+          console.log(err);
+          this.$snotify.warning(`${err}`, {
+            timeout: 3000,
+            showProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            position: "leftTop"
+          });
+          this.resetForm();
+        });
+    },
     submitForm() {
       this.$apollo
         .mutate({
@@ -175,11 +224,12 @@ export default {
             pauseOnHover: true,
             position: "leftTop"
           });
-          this.$router.push("/admin");
+          this.$router.push("/fintech");
           this.resetForm();
         })
         .catch(err => {
-          this.$snotify.warning(`Failed Add New Fintech`, {
+          console.log(err);
+          this.$snotify.warning(`${err}`, {
             timeout: 3000,
             showProgressBar: true,
             closeOnClick: true,
@@ -201,6 +251,37 @@ export default {
       });
       this.image = data.singleUpload.imageURL;
       this.loading = false;
+    }
+  },
+  apollo: {
+    fintech() {
+      return {
+        query: ONE_FINTECH,
+        variables: {
+          id: this.$route.params.id
+        },
+        update: data => {
+          const fintech = data.getFintechById;
+          this.id = fintech._id;
+          this.companyName = fintech.company_name;
+          this.description = fintech.description;
+          this.minInterest = fintech.min_interest;
+          this.maxInterest = fintech.max_interest;
+          this.image = fintech.logoURL;
+        },
+        skip() {
+          return !this.$route.params.id;
+        }
+      };
+    },
+    $skipAll() {
+      return !this.$route.params.id;
+    }
+  },
+  created() {
+    if (this.$route.params.id) {
+      this.add = false;
+      this.id = this.$route.params.id;
     }
   }
 };

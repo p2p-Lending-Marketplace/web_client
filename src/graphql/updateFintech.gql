@@ -1,0 +1,24 @@
+mutation updateFintechData(
+  $id: ID!
+  $company_name: String!
+  $description: String!
+  $min_interest: Float!
+  $max_interest: Float!
+  $logoURL: String!
+) {
+  updateFintechData(
+    id: $id
+    company_name: $company_name
+    description: $description
+    min_interest: $min_interest
+    max_interest: $max_interest
+    logoURL: $logoURL
+  ) {
+    _id
+    company_name
+    description
+    min_interest
+    max_interest
+    logoURL
+  }
+}

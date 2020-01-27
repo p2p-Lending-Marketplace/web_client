@@ -25,26 +25,64 @@ const routes = [
     }
   },
   {
-    path: "/admin",
-    name: "AdminDashboard",
+    path: "/fintech",
+    name: "Fintech",
     component: () =>
-      import(
-        /* webpackChunkName: "AdminDashboard" */ "../views/AdminDashboard.vue"
-      ),
+      import(/* webpackChunkName: "AdminDashboard" */ "../views/Fintech.vue"),
     meta: {
       auth: false,
-      title: "Admin Page | Fintech MarketPlace"
-    }
+      title: "Fintech | Fintech MarketPlace"
+    },
+    children: [
+      {
+        path: "add-fintech",
+        name: "FintechForm",
+        component: () =>
+          import(
+            /* webpackChunkName: "FintechForm" */ "../views/FintechForm.vue"
+          ),
+        meta: {
+          auth: false,
+          title: "Add-Fintech | Fintech MarketPlace"
+        }
+      },
+      {
+        path: ":id",
+        name: "FintechFormId",
+        component: () =>
+          import(
+            /* webpackChunkName: "FintechForm" */ "../views/FintechForm.vue"
+          ),
+        meta: {
+          auth: false,
+          title: "Edit-Fintech | Fintech MarketPlace"
+        }
+      }
+    ]
   },
   {
-    path: "/add-fintech",
-    name: "AddFintech",
+    path: "/listuser",
+    name: "ListUser",
     component: () =>
-      import(/* webpackChunkName: "AddFintech" */ "../views/AddFintech.vue"),
+      import(/* webpackChunkName: "ListUser" */ "../views/ListUser.vue"),
     meta: {
       auth: false,
-      title: "Add-Fintech | Fintech MarketPlace"
-    }
+      title: "List User | Fintech MarketPlace"
+    },
+    children: [
+      {
+        path: ":id",
+        name: "DetailUser",
+        component: () =>
+          import(
+            /* webpackChunkName: "DetailUser" */ "../views/DetailUser.vue"
+          ),
+        meta: {
+          auth: false,
+          title: "Detail User | Fintech MarketPlace"
+        }
+      }
+    ]
   },
   {
     path: "/about",
