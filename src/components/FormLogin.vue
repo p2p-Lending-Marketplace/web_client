@@ -49,6 +49,7 @@
 
 <script>
 import gql from "graphql-tag";
+import LOGIN_ADMIN from "../graphql/loginAdmin.gql";
 
 export default {
   name: "FormLogin",
@@ -70,9 +71,34 @@ export default {
   methods: {
     handleSubmit() {
       if (this.$refs.form.validate()) {
-        alert(this.userName, this.password);
-        this.$store.commit("USER_LOGIN", true);
-        this.$router.push("/fintech");
+        // alert(this.userName, this.password);
+        this.$apollo
+          .mutate({
+            mutation: LOGIN_ADMIN,
+            variables: {
+              username: this.userName,
+              password: this.password
+            }
+          })
+          .then(({ data }) => {
+            console.log(data);
+            let dataAdmin = data.loginAdmin;
+            localStorage.setItem("token", dataAdmin.token);
+            let payload = {
+              isLogin: true,
+              role: dataAdmin.role
+            };
+            this.$store.commit("USER_LOGIN", payload);
+            if (dataAdmin.role === "admin") {
+              this.$router.push("/fintech");
+              console.log("masuk sini");
+            } else {
+              this.$router.push("/listuser");
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
       }
     },
     resetForm() {

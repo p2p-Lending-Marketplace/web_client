@@ -1,6 +1,8 @@
 query getFintechById($id: ID!) {
   getFintechById(id: $id) {
     _id
+    username
+    password
     company_name
     description
     min_interest

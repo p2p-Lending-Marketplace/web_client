@@ -1,5 +1,8 @@
 mutation updateFintechData(
   $id: ID!
+  $token: String!
+  $username: String
+  $password: String
   $company_name: String!
   $description: String!
   $min_interest: Float!
@@ -8,6 +11,9 @@ mutation updateFintechData(
 ) {
   updateFintechData(
     id: $id
+    token: $token
+    username: $username
+    password: $password
     company_name: $company_name
     description: $description
     min_interest: $min_interest
@@ -15,6 +21,8 @@ mutation updateFintechData(
     logoURL: $logoURL
   ) {
     _id
+    username
+    password
     company_name
     description
     min_interest
