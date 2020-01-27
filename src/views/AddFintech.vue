@@ -12,9 +12,10 @@
             :src="image"
           ></v-img>
           <v-file-input
+            id="fileInput"
             light
             v-model="files"
-            color="deep-purple accent-4"
+            color="primary"
             counter
             label="File input"
             multiple
@@ -26,17 +27,12 @@
             dense
             v-on:change="fileHandle"
             ref="file"
-            loading
+            :loading="loading"
           >
             <template v-slot:selection="{ index, text }">
-              <v-chip
-                v-if="index < 2"
-                color="deep-purple accent-4"
-                dark
-                label
-                small
-                >{{ text }}</v-chip
-              >
+              <v-chip v-if="index < 2" color="primary" dark label small>{{
+                text
+              }}</v-chip>
 
               <span
                 v-else-if="index === 2"
@@ -58,27 +54,33 @@
               outlined
               dense
             ></v-text-field>
-            <!-- <v-textarea label="Description" v-model="desc" clearable dense outlined></v-textarea>
-          <v-text-field
-            label="Price"
-            type="Number"
-            v-model="price"
-            :rules="priceRules"
-            placeholder="0"
-            outlined
-            dense
-          ></v-text-field>
-          <v-select v-model="size" :items="item" dense label="Size" :rules="sizeRules"></v-select>
-          <v-text-field
-            v-model="stock"
-            :rules="stockRules"
-            label="Stock"
-            type="Number"
-            placeholder="0"
-            outlined
-            dense
-            class="mt-4"
-          ></v-text-field> -->
+            <v-textarea
+              light
+              label="Description"
+              v-model="description"
+              :rules="descriptionRules"
+              clearable
+              dense
+              outlined
+            ></v-textarea>
+            <v-text-field
+              light
+              label="Min Interest"
+              v-model.number="minInterest"
+              :rules="minInterestRules"
+              clearable
+              outlined
+              dense
+            ></v-text-field>
+            <v-text-field
+              light
+              label="Max Interest"
+              v-model.number="maxInterest"
+              :rules="maxInterestRules"
+              clearable
+              outlined
+              dense
+            ></v-text-field>
             <div v-if="add">
               <v-btn color="success" @click="validate">Submit</v-btn>
               <v-btn class="ml-3" color="warning" @click="resetForm"
@@ -100,18 +102,40 @@
 <script>
 // import gql from "graphql-tag";
 import UPLOAD_IMAGE from "../graphql/uploadImage.gql";
-// import axios from "axios";
+import ADD_FINTECH from "../graphql/addFintech.gql";
+import FETCH_FINTECH from "../graphql/allFinteches.gql";
 
 export default {
   name: "AddFintech",
   data() {
     return {
+      loading: false,
       add: true,
       valid: true,
       image: "http://www.grub.express/uploads/users/product-default.png",
       files: [],
       companyName: "",
-      companyNameRules: [v => !!v || "Company Name is required"]
+      companyNameRules: [v => !!v || "Company Name is required"],
+      description: "",
+      descriptionRules: [v => !!v || "Description is required"],
+      minInterest: 0,
+      minInterestRules: [
+        v => !!v || "Min Interest is required",
+        v =>
+          (v && v >= 0) ||
+          "Min Interest cannot have negative value and must greater than 0",
+        v =>
+          (v && v <= 100) || "Min Interest cannot have value greater than 100"
+      ],
+      maxInterest: 0,
+      maxInterestRules: [
+        v => !!v || "Max Interest is required",
+        v =>
+          (v && v >= 0) ||
+          "Max Interest cannot have negative value and must greater than 0",
+        v =>
+          (v && v <= 100) || "Max Interest cannot have value greater than 100"
+      ]
     };
   },
   methods: {
@@ -124,9 +148,49 @@ export default {
       }
     },
     submitForm() {
-      console.log(this.name, this.file);
+      this.$apollo
+        .mutate({
+          mutation: ADD_FINTECH,
+          variables: {
+            company_name: this.companyName,
+            description: this.description,
+            min_interest: this.minInterest,
+            max_interest: this.maxInterest,
+            logoURL: this.image
+          },
+          update: (store, { data: { addNewFintech } }) => {
+            // Read the data from our cache for this query.
+            const data = store.readQuery({ query: FETCH_FINTECH });
+            // Add our tag from the mutation to the end
+            data.getAllFinteches.push(addNewFintech);
+            // Write our data back to the cache.
+            store.writeQuery({ query: FETCH_FINTECH, data });
+          }
+        })
+        .then(data => {
+          this.$snotify.success(`Success Add New Fintech`, {
+            timeout: 3000,
+            showProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            position: "leftTop"
+          });
+          this.$router.push("/admin");
+          this.resetForm();
+        })
+        .catch(err => {
+          this.$snotify.warning(`Failed Add New Fintech`, {
+            timeout: 3000,
+            showProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            position: "leftTop"
+          });
+          this.resetForm();
+        });
     },
     async fileHandle() {
+      this.loading = true;
       let formData = new FormData();
       formData.append("image", this.files[0]);
       const { data } = await this.$apollo.mutate({
@@ -136,37 +200,7 @@ export default {
         }
       });
       this.image = data.singleUpload.imageURL;
-
-      // axios({
-      //   url: "http://localhost:3000/imageUpload",
-      //   method: "POST",
-      //   data: formData
-      // })
-      //   .then(({ data }) => {
-      //     console.log(data);
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //   });
-
-      // this.$store
-      //   .dispatch("product/uploadImage", formData)
-      //   .then(({ data }) => {
-      //     this.image = data.image;
-      //   })
-      //   .catch(err => {
-      //     let text = "";
-      //     err.response.data.errors.forEach(element => {
-      //       text += element + ", ";
-      //     });
-      //     this.$snotify.warning(`${text}`, {
-      //       timeout: 3000,
-      //       showProgressBar: true,
-      //       closeOnClick: true,
-      //       pauseOnHover: true,
-      //       position: "leftTop"
-      //     });
-      //   });
+      this.loading = false;
     }
   }
 };
