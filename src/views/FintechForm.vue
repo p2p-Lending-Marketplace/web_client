@@ -4,13 +4,7 @@
       <v-row justify="center" align="center">
         <v-col cols="5" class="text-center" dark style="margin-top:7%;">
           <p style="color:black;">Upload Image</p>
-          <v-img
-            contain
-            class="image-upload mx-auto"
-            height="250"
-            width="250"
-            :src="image"
-          ></v-img>
+          <v-img contain class="image-upload mx-auto" height="250" width="250" :src="image"></v-img>
           <v-file-input
             id="fileInput"
             light
@@ -30,21 +24,40 @@
             :loading="loading"
           >
             <template v-slot:selection="{ index, text }">
-              <v-chip v-if="index < 2" color="primary" dark label small>{{
+              <v-chip v-if="index < 2" color="primary" dark label small>
+                {{
                 text
-              }}</v-chip>
+                }}
+              </v-chip>
 
               <span
                 v-else-if="index === 2"
                 class="overline grey--text text--darken-3 mx-2"
-                >+{{ files.length - 2 }} File(s)</span
-              >
+              >+{{ files.length - 2 }} File(s)</span>
             </template>
           </v-file-input>
         </v-col>
         <v-col cols="5">
           <p style="color:black;">Add Fintech Form</p>
           <v-form ref="form" v-model="valid" lazy-validation>
+            <v-text-field
+              light
+              label="Username"
+              v-model="username"
+              :rules="usernameRules"
+              clearable
+              outlined
+              dense
+            ></v-text-field>
+            <v-text-field
+              light
+              label="Password"
+              v-model="password"
+              :rules="passwordRules"
+              clearable
+              outlined
+              dense
+            ></v-text-field>
             <v-text-field
               light
               label="Company Name"
@@ -83,15 +96,11 @@
             ></v-text-field>
             <div v-if="add">
               <v-btn color="success" @click="validate">Submit</v-btn>
-              <v-btn class="ml-3" color="warning" @click="resetForm"
-                >Reset Form</v-btn
-              >
+              <v-btn class="ml-3" color="warning" @click="resetForm">Reset Form</v-btn>
             </div>
             <div v-if="!add">
               <v-btn color="success" @click="editFintech">Edit</v-btn>
-              <v-btn class="ml-3" color="warning" @click="resetForm"
-                >Reset Form</v-btn
-              >
+              <v-btn class="ml-3" color="warning" @click="resetForm">Reset Form</v-btn>
               <!-- <v-btn class="ml-3" dark color="red" @click="deleteProduct">Delete</v-btn> -->
             </div>
           </v-form>
@@ -114,6 +123,16 @@ export default {
   data() {
     return {
       id: "",
+      username: "",
+      usernameRules: [
+        v => !!v || "Username is required",
+        v => (v && v.length >= 5) || "Username must be higher then 5 characters"
+      ],
+      password: "",
+      passwordRules: [
+        v => !!v || "Company Name is required",
+        v => (v && v.length >= 5) || "Password must be higher then 5 characters"
+      ],
       loading: false,
       add: true,
       valid: true,
@@ -157,6 +176,9 @@ export default {
         .mutate({
           mutation: UPDATE_FINTECH,
           variables: {
+            token: localStorage.getItem("token"),
+            username: this.username,
+            password: this.password,
             id: this.id,
             company_name: this.companyName,
             description: this.description,
@@ -166,11 +188,16 @@ export default {
           },
           update: (store, { data: { updateFintechData } }) => {
             // Read the data from our cache for this query.
-            const data = store.readQuery({ query: UPDATE_FINTECH });
+            const data = store.readQuery({ query: FETCH_FINTECH });
             // Add our tag from the mutation to the end
-            data.getAllFinteches.push(updateFintechData);
+            const newData = data.getAllFinteches.map(fintech => {
+              if (fintech._id == updateFintechData._id) {
+                return updateFintechData;
+              }
+              return fintech;
+            });
             // Write our data back to the cache.
-            store.writeQuery({ query: UPDATE_FINTECH, data });
+            store.writeQuery({ query: FETCH_FINTECH, newData });
           }
         })
         .then(data => {
@@ -197,10 +224,15 @@ export default {
         });
     },
     submitForm() {
+      console.log("triggering");
+      console.log(this.image);
       this.$apollo
         .mutate({
           mutation: ADD_FINTECH,
           variables: {
+            token: localStorage.getItem("token"),
+            username: this.username,
+            password: this.password,
             company_name: this.companyName,
             description: this.description,
             min_interest: this.minInterest,
@@ -263,6 +295,8 @@ export default {
         update: data => {
           const fintech = data.getFintechById;
           this.id = fintech._id;
+          this.username = fintech.username;
+          this.password = fintech.password;
           this.companyName = fintech.company_name;
           this.description = fintech.description;
           this.minInterest = fintech.min_interest;
@@ -289,7 +323,7 @@ export default {
 
 <style scoped>
 .AddFintech {
-  background-color: whitesmoke;
+  background-color: white;
 }
 .image-upload {
   border: 1px solid #000;

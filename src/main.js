@@ -6,8 +6,10 @@ import vuetify from "./plugins/vuetify";
 import Snotify from "vue-snotify";
 import "vue-snotify/styles/material.css";
 import { createProvider } from "./vue-apollo";
+import ImageMagnifier from "vue-image-magnifier";
 
 Vue.use(Snotify);
+Vue.use(ImageMagnifier);
 Vue.config.productionTip = false;
 
 new Vue({

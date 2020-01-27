@@ -1,0 +1,9 @@
+mutation loginAdmin($username: String!, $password: String!) {
+  loginAdmin(username: $username, password: $password) {
+    _id
+    username
+    role
+    fintech_id
+    token
+  }
+}

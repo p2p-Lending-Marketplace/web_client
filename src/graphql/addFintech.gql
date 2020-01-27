@@ -1,4 +1,7 @@
 mutation addNewFintech(
+  $token: String!
+  $username: String
+  $password: String
   $company_name: String!
   $description: String!
   $min_interest: Float!
@@ -6,6 +9,9 @@ mutation addNewFintech(
   $logoURL: String!
 ) {
   addNewFintech(
+    token: $token
+    username: $username
+    password: $password
     company_name: $company_name
     description: $description
     min_interest: $min_interest

@@ -3,7 +3,7 @@
     <!-- <v-app id="inspire"> -->
     <v-navigation-drawer v-model="drawer" app clipped>
       <!-- admin -->
-      <v-list dense v-if="roleLogin === 'admin'">
+      <v-list dense v-if="userRole === 'admin'">
         <v-list-item
           v-for="item in adminItems"
           :key="item.text"
@@ -25,12 +25,11 @@
           <v-list-item-title
             class="grey--text text--darken-1"
             @click.prevent="handleLogout"
-            >Sign Out</v-list-item-title
-          >
+          >Sign Out</v-list-item-title>
         </v-list-item>
       </v-list>
       <!-- member -->
-      <v-list dense v-if="roleLogin === 'member'">
+      <v-list dense v-if="userRole === 'fintech'">
         <v-list-item
           v-for="item in memberItems"
           :key="item.text"
@@ -52,30 +51,18 @@
           <v-list-item-title
             class="grey--text text--darken-1"
             @click.prevent="handleLogout"
-            >Sign Out</v-list-item-title
-          >
+          >Sign Out</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left color="blue" dense>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="userLogin" />
-      <v-toolbar-title
-        class="mr-12 align-center"
-        @click.prevent="$router.push('/')"
-        id="logo-app"
-      >
+      <v-toolbar-title class="mr-12 align-center" @click.prevent="$router.push('/')" id="logo-app">
         <span class="title">Fintech MarketPlace</span>
       </v-toolbar-title>
       <v-spacer />
-      <v-btn
-        v-if="!userLogin"
-        depressed
-        tile
-        text
-        @click.prevent="$router.push('/signin')"
-        >Sign In</v-btn
-      >
+      <v-btn v-if="!userLogin" depressed tile text @click.prevent="$router.push('/signin')">Sign In</v-btn>
     </v-app-bar>
     <!-- </v-app> -->
   </div>
@@ -86,7 +73,6 @@ export default {
   name: "Navbar",
   data() {
     return {
-      roleLogin: "member",
       drawer: false,
       memberItems: [
         { icon: "trending_down", text: "Current-Application", to: "/listuser" }
@@ -111,7 +97,11 @@ export default {
   },
   methods: {
     handleLogout() {
-      this.$store.commit("USER_LOGIN", false);
+      let payload = {
+        isLogin: false,
+        role: ""
+      };
+      this.$store.commit("USER_LOGIN", payload);
       this.drawer = false;
       this.$router.push("/");
     }
@@ -119,10 +109,13 @@ export default {
   computed: {
     userLogin() {
       return this.$store.state.isLogin;
+    },
+    userRole() {
+      return this.$store.state.role;
     }
   },
   created() {
-    this.$vuetify.theme.dark = true;
+    // this.$vuetify.theme. = true;
   }
 };
 </script>

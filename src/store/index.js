@@ -5,11 +5,13 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    isLogin: false
+    isLogin: false,
+    role: ""
   },
   mutations: {
     USER_LOGIN(state, payload) {
-      state.isLogin = payload;
+      state.isLogin = payload.isLogin;
+      state.role = payload.role;
     }
   },
   actions: {

@@ -99,7 +99,7 @@ export default {
 
 <style scoped>
 .ListUser {
-  background-color: whitesmoke;
+  background-color: white;
 }
 
 #on-user {
