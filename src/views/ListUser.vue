@@ -15,7 +15,7 @@
                 <tr
                   v-for="item in getAllUsers"
                   :key="item.name"
-                  @click.prevent="goDetailUser(item.user_id)"
+                  @click.prevent="goDetailUser(item._id)"
                 >
                   <td id="on-user">{{ item._id }}</td>
                   <td id="on-user">{{ item.amount }}</td>
@@ -26,7 +26,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <router-view v-if="$route.params.id" />
+    <!-- <router-view v-if="$route.params.id" /> -->
   </div>
 </template>
 
@@ -47,17 +47,39 @@ export default {
   },
   watch: {
     fetchAdminId(val) {
-      if (val) this.$apollo.query({
-        query: FETCH_USERS,
-        variables: {
-          token: localStorage.getItem("token"),
-          fintechID: this.fetchAdminId
-        },
-      }).then(({data})=>this.getAllUsers = data.getAllFintechApplications)
+      console.log("triggered");
+      if (val)
+        this.$apollo
+          .query({
+            query: FETCH_USERS,
+            variables: {
+              token: localStorage.getItem("token"),
+              fintechID: this.fetchAdminId
+            }
+          })
+          .then(
+            ({ data }) => (this.getAllUsers = data.getAllFintechApplications)
+          );
+    }
+  },
+  created() {
+    if (this.fetchAdminId) {
+      this.$apollo
+        .query({
+          query: FETCH_USERS,
+          variables: {
+            token: localStorage.getItem("token"),
+            fintechID: this.fetchAdminId
+          }
+        })
+        .then(
+          ({ data }) => (this.getAllUsers = data.getAllFintechApplications)
+        );
     }
   },
   computed: {
     fetchAdminId() {
+      console.log("tesss");
       return this.$store.state.id;
     }
   }

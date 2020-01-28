@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
+// import gql from "graphql-tag";
 import LOGIN_ADMIN from "../graphql/loginAdmin.gql";
 
 export default {

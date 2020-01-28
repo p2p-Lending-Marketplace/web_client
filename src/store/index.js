@@ -17,7 +17,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    adminLogin({ commit }, payload) {}
+    // adminLogin({ commit }, payload) {}
   },
   modules: {}
 });

@@ -25,7 +25,8 @@
           <v-list-item-title
             class="grey--text text--darken-1"
             @click.prevent="handleLogout"
-          >Sign Out</v-list-item-title>
+            >Sign Out</v-list-item-title
+          >
         </v-list-item>
       </v-list>
       <!-- member -->
@@ -51,18 +52,30 @@
           <v-list-item-title
             class="grey--text text--darken-1"
             @click.prevent="handleLogout"
-          >Sign Out</v-list-item-title>
+            >Sign Out</v-list-item-title
+          >
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
 
     <v-app-bar app clipped-left color="blue" dense>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="userLogin" />
-      <v-toolbar-title class="mr-12 align-center" @click.prevent="$router.push('/')" id="logo-app">
+      <v-toolbar-title
+        class="mr-12 align-center"
+        @click.prevent="$router.push('/')"
+        id="logo-app"
+      >
         <span class="title">Fintech MarketPlace</span>
       </v-toolbar-title>
       <v-spacer />
-      <v-btn v-if="!userLogin" depressed tile text @click.prevent="$router.push('/signin')">Sign In</v-btn>
+      <v-btn
+        v-if="!userLogin"
+        depressed
+        tile
+        text
+        @click.prevent="$router.push('/signin')"
+        >Sign In</v-btn
+      >
     </v-app-bar>
     <!-- </v-app> -->
   </div>

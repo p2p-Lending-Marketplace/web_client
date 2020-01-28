@@ -68,21 +68,17 @@ const routes = [
     meta: {
       auth: false,
       title: "List User | Fintech MarketPlace"
-    },
-    children: [
-      {
-        path: ":id",
-        name: "DetailUser",
-        component: () =>
-          import(
-            /* webpackChunkName: "DetailUser" */ "../views/DetailUser.vue"
-          ),
-        meta: {
-          auth: false,
-          title: "Detail User | Fintech MarketPlace"
-        }
-      }
-    ]
+    }
+  },
+  {
+    path: "/listuser/:id",
+    name: "DetailUser",
+    component: () =>
+      import(/* webpackChunkName: "DetailUser" */ "../views/DetailUser.vue"),
+    meta: {
+      auth: false,
+      title: "Detail User | Fintech MarketPlace"
+    }
   },
   {
     path: "/about",
