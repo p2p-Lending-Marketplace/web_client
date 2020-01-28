@@ -1,0 +1,19 @@
+query($token: String!, $id: ID) {
+  getUserById(token: $token, id: $id) {
+    _id
+    name
+    email
+    phone_number
+    pin
+    address
+    photo_url
+    id_url
+    salary_slip_url
+    current_job
+    salary
+    num_id
+    date_of_birth
+    place_of_birth
+    token
+  }
+}

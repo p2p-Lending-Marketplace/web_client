@@ -50,16 +50,34 @@
 </template>
 
 <script>
+import FETCH_USER from "../graphql/oneUser.gql";
+
 export default {
   name: "DetailUser",
   data() {
     return {
+      detailUser: {},
       imageZoom: "https://i.ytimg.com/vi/e_bhsQyU3V4/maxresdefault.jpg",
       photo_url:
         "https://cdn.idntimes.com/content-images/duniaku/post/20200116/fakta-itachi-uchiha-0-bdbc384f4ad79e9798a65e4215b30520_600x400.png",
       slip_url:
         "https://i.pinimg.com/originals/c0/c2/42/c0c2420a0b1ead9d1530dfbd8be61f31.jpg"
     };
+  },
+  apollo: {
+    detailUser() {
+      return {
+        query: FETCH_USER,
+        variables: {
+          token: localStorage.getItem("token"),
+          id: this.$route.params.id
+        },
+        update: data => {
+          this.detailUser = data.getUserById;
+          console.log(this.detailUser);
+        }
+      };
+    }
   },
   created() {
     this.imageZoom = this.photo_url;
