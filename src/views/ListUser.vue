@@ -98,11 +98,6 @@ export default {
     }
   },
   apollo: {
-    // getAllFintechApplications: FETCH_USERS,
-    // variables: {
-    //   token: localStorage.getItem("token"),
-    //   fintechID: this.fetchAdminId
-    // }
     listUser() {
       return {
         query: FETCH_USERS,
@@ -111,21 +106,8 @@ export default {
           fintechID: this.fetchAdminId
         },
         update: data => {
-          // const fintech = data.getFintechById;
-          // this.id = fintech._id;
-          // this.username = fintech.username;
-          // this.password = fintech.password;
-          // this.companyName = fintech.company_name;
-          // this.description = fintech.description;
-          // this.minInterest = fintech.min_interest;
-          // this.maxInterest = fintech.max_interest;
-          // this.image = fintech.logoURL;
-          // console.log(data);
           this.getAllUsers = data.getAllFintechApplications;
         }
-        // skip() {
-        //   return !this.$route.params.id;
-        // }
       };
     }
   },
