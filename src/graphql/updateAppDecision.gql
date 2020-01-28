@@ -1,0 +1,10 @@
+mutation($id: ID!, $amount: Int, $loan_term: Int, $decision: String) {
+  updateApplicationDecision(
+    id: $id
+    amount: $amount
+    loan_term: $loan_term
+    decision: $decision
+  ) {
+    _id
+  }
+}

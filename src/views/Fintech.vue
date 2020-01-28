@@ -24,14 +24,10 @@
           <v-list-item-content>
             <div class="overline mb-4">Fintech</div>
             <v-list-item-title class="headline mb-1">
-              {{
-              fintech.company_name
-              }}
+              {{ fintech.company_name }}
             </v-list-item-title>
             <v-list-item-subtitle>
-              {{
-              fintech.description
-              }}
+              {{ fintech.description }}
             </v-list-item-subtitle>
           </v-list-item-content>
 
@@ -54,7 +50,7 @@
 </template>
 
 <script>
-import gql from "graphql-tag";
+// import gql from "graphql-tag";
 import FETCH_FINTECH from "../graphql/allFinteches.gql";
 
 export default {
