@@ -1,29 +1,29 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Landing from "../views/Landing.vue";
+import FormSign from "../views/FormSign.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Landing",
-    component: Landing,
-    meta: {
-      auth: false,
-      title: "Fintech MarketPlace"
-    }
-  },
-  {
-    path: "/signin",
     name: "FormLogin",
-    component: () =>
-      import(/* webpackChunkName: "FormSign" */ "../views/Form.vue"),
+    component: FormSign,
     meta: {
       auth: false,
-      title: "SignIn | Fintech MarketPlace"
+      title: "Finteur"
     }
   },
+  // {
+  //   path: "/signin",
+  //   name: "FormLogin",
+  //   component: () =>
+  //     import(/* webpackChunkName: "FormSign" */ "../views/Form.vue"),
+  //   meta: {
+  //     auth: false,
+  //     title: "SignIn | Fintech MarketPlace"
+  //   }
+  // },
   {
     path: "/fintech",
     name: "Fintech",

@@ -37,6 +37,7 @@ export default {
   name: "ListUser",
   data() {
     return {
+      tes: "",
       getAllUsers: []
     };
   },
@@ -45,9 +46,17 @@ export default {
       this.$router.push(`/listuser/${id}`);
     }
   },
+
+  computed: {
+    fetchAdminId() {
+      return this.$store.state.id;
+    }
+  },
   watch: {
+    tes(val) {
+      console.log("makan");
+    },
     fetchAdminId(val) {
-      console.log("triggered");
       if (val)
         this.$apollo
           .query({

@@ -2,12 +2,12 @@
   <v-content class="container-wrapper">
     <v-container class="fill-height">
       <v-row justify="center" align="center">
-        <v-col id="content-wrapper">
+        <!-- <v-col id="content-wrapper">
           <v-img
             alt="produk-impian"
-            src="https://kreditimpian.com/storage/images/settings/logo-biru.png"
+            src="https://i.ibb.co/WFfQxfs/linkedin-banner-image-1.png"
           ></v-img>
-        </v-col>
+        </v-col> -->
       </v-row>
     </v-container>
   </v-content>
@@ -21,7 +21,9 @@ export default {
 
 <style scoped>
 .container-wrapper {
-  background-color: white;
+  background: url("https://i.ibb.co/WFfQxfs/linkedin-banner-image-1.png");
+  background-size: cover;
+  /* background-color: white; */
   width: 100%;
   height: 87vh;
 }

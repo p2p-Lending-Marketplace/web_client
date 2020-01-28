@@ -333,6 +333,8 @@ export default {
 <style scoped>
 .AddFintech {
   background-color: white;
+  height: 100vh;
+  width: 100%;
 }
 .image-upload {
   border: 1px solid #000;

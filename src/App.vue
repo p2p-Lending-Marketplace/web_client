@@ -1,11 +1,13 @@
 <template>
   <v-app>
-    <navbar-component />
-    <v-content>
+    <div class="App">
+      <!-- <navbar-component /> -->
+      <!-- <v-content> -->
       <router-view />
-    </v-content>
-    <footer-component />
-    <vue-snotify></vue-snotify>
+      <!-- </v-content> -->
+      <!-- <footer-component /> -->
+      <vue-snotify></vue-snotify>
+    </div>
   </v-app>
 </template>
 
@@ -53,3 +55,11 @@ export default {
   }
 };
 </script>
+<style>
+@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+
+.App {
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+}
+</style>
