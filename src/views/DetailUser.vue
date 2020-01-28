@@ -134,6 +134,7 @@
 
 <script>
 import FETCH_USER from "../graphql/oneUser.gql";
+// import FETCH_USERS from "../graphql/allUser.gql";
 import UPDATE_DECISION from "../graphql/updateAppDecision.gql";
 
 export default {
@@ -155,10 +156,18 @@ export default {
         .mutate({
           mutation: UPDATE_DECISION,
           variables: {
+            token: localStorage.getItem("token"),
             id: this.$route.params.id,
             amount: this.detailUser.amount,
             loan_term: this.detailUser.loan_term,
             decision: "accepted"
+          },
+          update: (store, { data: { updateApplicationDecision } }) => {
+            console.log(updateApplicationDecision);
+            store.writeQuery({
+              query: FETCH_USER,
+              data: updateApplicationDecision
+            });
           }
         })
         .then(() => this.$router.push("/listuser"));
@@ -168,8 +177,16 @@ export default {
         .mutate({
           mutation: UPDATE_DECISION,
           variables: {
+            token: localStorage.getItem("token"),
             id: this.$route.params.id,
             decision: "rejected"
+          },
+          update: (store, { data: { updateApplicationDecision } }) => {
+            console.log(updateApplicationDecision);
+            store.writeQuery({
+              query: FETCH_USER,
+              data: updateApplicationDecision
+            });
           }
         })
         .then(() => this.$router.push("/listuser"));

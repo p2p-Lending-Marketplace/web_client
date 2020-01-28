@@ -1,10 +1,40 @@
-mutation($id: ID!, $amount: Int, $loan_term: Int, $decision: String) {
+mutation(
+  $token: String
+  $id: ID!
+  $amount: Int
+  $loan_term: Int
+  $decision: String
+) {
   updateApplicationDecision(
+    token: $token
     id: $id
     amount: $amount
     loan_term: $loan_term
     decision: $decision
   ) {
     _id
+    user_id {
+      name
+      email
+      phone_number
+      address
+      photo_url
+      id_url
+      salary_slip_url
+      current_job
+      salary
+      num_id
+      date_of_birth
+      place_of_birth
+    }
+    fintech_id
+    amount
+    logoURL
+    company_name
+    loan_term
+    objective
+    decision
+    createdAt
+    status
   }
 }
