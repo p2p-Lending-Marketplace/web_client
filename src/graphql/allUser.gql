@@ -1,0 +1,15 @@
+query($fintechID: String!, $token: String!) {
+  getAllFintechApplications(fintechID: $fintechID, token: $token) {
+    _id
+    user_id
+    fintech_id
+    amount
+    logoURL
+    company_name
+    loan_term
+    objective
+    decision
+    createdAt
+    status
+  }
+}

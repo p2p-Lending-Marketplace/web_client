@@ -8,17 +8,17 @@
               <thead>
                 <tr>
                   <th class="text-left">Name</th>
-                  <th class="text-left">JML Pinjaman</th>
+                  <th class="text-left">Amount</th>
                 </tr>
               </thead>
               <tbody>
                 <tr
-                  v-for="item in desserts"
+                  v-for="item in getAllUsers"
                   :key="item.name"
-                  @click.prevent="goDetailUser(item._id)"
+                  @click.prevent="goDetailUser(item.user_id)"
                 >
-                  <td id="on-user">{{ item.name }}</td>
-                  <td id="on-user">{{ item.calories }}</td>
+                  <td id="on-user">{{ item._id }}</td>
+                  <td id="on-user">{{ item.amount }}</td>
                 </tr>
               </tbody>
             </template>
@@ -31,67 +31,107 @@
 </template>
 
 <script>
+import FETCH_USERS from "../graphql/allUser.gql";
+
 export default {
   name: "ListUser",
   data() {
     return {
-      desserts: [
-        {
-          _id: "dsadsa21e21",
-          name: "Frozen Yogurt",
-          calories: 159
-        },
-        {
-          _id: "dsadsa21e21",
-          name: "Ice cream sandwich",
-          calories: 237
-        },
-        {
-          _id: "dsadsa21e21",
-          name: "Eclair",
-          calories: 262
-        },
-        {
-          _id: "dsadsa21e21",
-          name: "Cupcake",
-          calories: 305
-        },
-        {
-          _id: "dsadsa21e21",
-          name: "Gingerbread",
-          calories: 356
-        },
-        {
-          _id: "dsadsa21e21",
-          name: "Jelly bean",
-          calories: 375
-        },
-        {
-          _id: "dsadsa21e21",
-          name: "Lollipop",
-          calories: 392
-        },
-        {
-          _id: "dsadsa21e21",
-          name: "Honeycomb",
-          calories: 408
-        },
-        {
-          _id: "dsadsa21e21",
-          name: "Donut",
-          calories: 452
-        },
-        {
-          _id: "dsadsa21e21",
-          name: "KitKat",
-          calories: 518
-        }
-      ]
+      getAllUsers: []
+      // desserts: [
+      //   {
+      //     _id: "dsadsa21e21",
+      //     name: "Frozen Yogurt",
+      //     calories: 159
+      //   },
+      //   {
+      //     _id: "dsadsa21e21",
+      //     name: "Ice cream sandwich",
+      //     calories: 237
+      //   },
+      //   {
+      //     _id: "dsadsa21e21",
+      //     name: "Eclair",
+      //     calories: 262
+      //   },
+      //   {
+      //     _id: "dsadsa21e21",
+      //     name: "Cupcake",
+      //     calories: 305
+      //   },
+      //   {
+      //     _id: "dsadsa21e21",
+      //     name: "Gingerbread",
+      //     calories: 356
+      //   },
+      //   {
+      //     _id: "dsadsa21e21",
+      //     name: "Jelly bean",
+      //     calories: 375
+      //   },
+      //   {
+      //     _id: "dsadsa21e21",
+      //     name: "Lollipop",
+      //     calories: 392
+      //   },
+      //   {
+      //     _id: "dsadsa21e21",
+      //     name: "Honeycomb",
+      //     calories: 408
+      //   },
+      //   {
+      //     _id: "dsadsa21e21",
+      //     name: "Donut",
+      //     calories: 452
+      //   },
+      //   {
+      //     _id: "dsadsa21e21",
+      //     name: "KitKat",
+      //     calories: 518
+      //   }
+      // ]
     };
   },
   methods: {
     goDetailUser(id) {
       this.$router.push(`/listuser/${id}`);
+    }
+  },
+  apollo: {
+    // getAllFintechApplications: FETCH_USERS,
+    // variables: {
+    //   token: localStorage.getItem("token"),
+    //   fintechID: this.fetchAdminId
+    // }
+    listUser() {
+      return {
+        query: FETCH_USERS,
+        variables: {
+          token: localStorage.getItem("token"),
+          fintechID: this.fetchAdminId
+        },
+        update: data => {
+          // const fintech = data.getFintechById;
+          // this.id = fintech._id;
+          // this.username = fintech.username;
+          // this.password = fintech.password;
+          // this.companyName = fintech.company_name;
+          // this.description = fintech.description;
+          // this.minInterest = fintech.min_interest;
+          // this.maxInterest = fintech.max_interest;
+          // this.image = fintech.logoURL;
+          // console.log(data);
+          this.getAllUsers = data.getAllFintechApplications;
+        }
+        // skip() {
+        //   return !this.$route.params.id;
+        // }
+      };
+    }
+  },
+  computed: {
+    fetchAdminId() {
+      return this.$store.state.id;
     }
   }
 };
