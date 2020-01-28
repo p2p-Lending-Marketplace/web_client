@@ -35,10 +35,11 @@ export default {
         }
       })
         .then(({ data }) => {
-          // console.log(data);
+          console.log(data, "<==");
           let payload = {
             isLogin: true,
-            role: data.role
+            role: data.role,
+            id: data._id
           };
           this.$store.commit("USER_LOGIN", payload);
         })
