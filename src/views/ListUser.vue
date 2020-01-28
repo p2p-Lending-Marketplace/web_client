@@ -38,58 +38,6 @@ export default {
   data() {
     return {
       getAllUsers: []
-      // desserts: [
-      //   {
-      //     _id: "dsadsa21e21",
-      //     name: "Frozen Yogurt",
-      //     calories: 159
-      //   },
-      //   {
-      //     _id: "dsadsa21e21",
-      //     name: "Ice cream sandwich",
-      //     calories: 237
-      //   },
-      //   {
-      //     _id: "dsadsa21e21",
-      //     name: "Eclair",
-      //     calories: 262
-      //   },
-      //   {
-      //     _id: "dsadsa21e21",
-      //     name: "Cupcake",
-      //     calories: 305
-      //   },
-      //   {
-      //     _id: "dsadsa21e21",
-      //     name: "Gingerbread",
-      //     calories: 356
-      //   },
-      //   {
-      //     _id: "dsadsa21e21",
-      //     name: "Jelly bean",
-      //     calories: 375
-      //   },
-      //   {
-      //     _id: "dsadsa21e21",
-      //     name: "Lollipop",
-      //     calories: 392
-      //   },
-      //   {
-      //     _id: "dsadsa21e21",
-      //     name: "Honeycomb",
-      //     calories: 408
-      //   },
-      //   {
-      //     _id: "dsadsa21e21",
-      //     name: "Donut",
-      //     calories: 452
-      //   },
-      //   {
-      //     _id: "dsadsa21e21",
-      //     name: "KitKat",
-      //     calories: 518
-      //   }
-      // ]
     };
   },
   methods: {
@@ -97,18 +45,15 @@ export default {
       this.$router.push(`/listuser/${id}`);
     }
   },
-  apollo: {
-    listUser() {
-      return {
+  watch: {
+    fetchAdminId(val) {
+      if (val) this.$apollo.query({
         query: FETCH_USERS,
         variables: {
           token: localStorage.getItem("token"),
           fintechID: this.fetchAdminId
         },
-        update: data => {
-          this.getAllUsers = data.getAllFintechApplications;
-        }
-      };
+      }).then(({data})=>this.getAllUsers = data.getAllFintechApplications)
     }
   },
   computed: {
