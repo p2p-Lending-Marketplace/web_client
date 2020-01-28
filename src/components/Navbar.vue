@@ -97,6 +97,7 @@ export default {
   },
   methods: {
     handleLogout() {
+      localStorage.removeItem("token");
       let payload = {
         isLogin: false,
         role: ""

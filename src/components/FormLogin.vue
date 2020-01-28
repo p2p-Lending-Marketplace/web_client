@@ -86,7 +86,8 @@ export default {
             localStorage.setItem("token", dataAdmin.token);
             let payload = {
               isLogin: true,
-              role: dataAdmin.role
+              role: dataAdmin.role,
+              id: dataAdmin._id
             };
             this.$store.commit("USER_LOGIN", payload);
             if (dataAdmin.role === "admin") {
