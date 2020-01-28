@@ -58,7 +58,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app clipped-left color="blue" dense>
+    <v-app-bar app clipped-left color="blue" dense dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="userLogin" />
       <v-toolbar-title
         class="mr-12 align-center"
