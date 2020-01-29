@@ -4,10 +4,13 @@
       <template v-slot="{ result: { loading, error, data } }">
     <div v-if="data">-->
     <div v-if="$route.path === '/fintech'" class="pl-5">
-      <h3>DASHBOARD</h3>
+      <h2>DASHBOARD</h2>
     </div>
-    <div v-if="$route.path === '/fintech/add-fintech'" class="pl-5">
-      <h3>ADD FINTECH</h3>
+    <div
+      v-if="$route.path === '/fintech/add-fintech' || $route.params.id"
+      class="pl-5"
+    >
+      <h2>FORM FINTECH</h2>
     </div>
     <v-container
       style="padding-top:5%;"
@@ -85,10 +88,14 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+
 .Dashboard {
+  /* font-family: "Poppins", sans-serif; */
   background-color: white;
   width: 100%;
   height: auto;
+  padding: 10px;
 }
 
 #card-fintech {

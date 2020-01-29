@@ -15,26 +15,6 @@ const routes = [
     }
   },
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    component: () =>
-      import(/* webpackChunkName: "ListUser" */ "../views/Dashboard.vue"),
-    meta: {
-      auth: false,
-      title: "Dashboard | Finteur"
-    }
-  },
-  // {
-  //   path: "/signin",
-  //   name: "FormLogin",
-  //   component: () =>
-  //     import(/* webpackChunkName: "FormSign" */ "../views/Form.vue"),
-  //   meta: {
-  //     auth: false,
-  //     title: "SignIn | Fintech MarketPlace"
-  //   }
-  // },
-  {
     path: "/fintech",
     name: "Fintech",
     component: () =>
