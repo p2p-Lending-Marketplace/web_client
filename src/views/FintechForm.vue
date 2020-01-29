@@ -57,6 +57,7 @@
             <v-text-field
               light
               label="Password"
+              type="password"
               v-model="password"
               :rules="passwordRules"
               clearable

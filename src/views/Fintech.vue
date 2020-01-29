@@ -58,12 +58,12 @@
 <script>
 // import gql from "graphql-tag";
 import FETCH_FINTECH from "../graphql/allFinteches.gql";
-import Drawer from "../components/Drawer";
+// import Drawer from "../components/Drawer";
 
 export default {
   name: "Fintech",
   components: {
-    Drawer
+    // Drawer
   },
   data() {
     return {

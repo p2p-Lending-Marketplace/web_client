@@ -12,7 +12,7 @@
 </template>
 
 <script>
-// import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
 import axios from "axios";
 const baseUrl = "http://localhost:3000";
@@ -20,7 +20,7 @@ const baseUrl = "http://localhost:3000";
 export default {
   name: "App",
   components: {
-    // "navbar-component": Navbar
+    "navbar-component": Navbar
     // "footer-component": Footer
   },
 
@@ -40,6 +40,8 @@ export default {
           console.log(data, "<==");
           let payload = {
             isLogin: true,
+            company_name: data.company_name,
+            logoURL: data.logoURL,
             role: data.role,
             id: data._id
           };
@@ -51,15 +53,15 @@ export default {
     }
   },
   created() {
-    this.fetchCurrentAdmin();
     if (!localStorage.getItem("token")) {
       this.$router.push("/");
+    } else {
+      this.fetchCurrentAdmin();
     }
   }
 };
 </script>
 <style lang="scss">
-@import "@/styles/index.scss";
 @import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
 
 .App {

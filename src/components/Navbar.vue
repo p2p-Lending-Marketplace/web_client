@@ -13,11 +13,16 @@
     >
       <v-list-item two-line>
         <v-list-item-avatar>
-          <img src="https://randomuser.me/api/portraits/men/81.jpg" />
+          <img
+            style="width:100%; height: 100%; object-fit: cover;"
+            :src="$store.state.logoURL"
+          />
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>FINTEUR</v-list-item-title>
+          <v-list-item-title>{{
+            $store.state.company_name || "FINTEUR"
+          }}</v-list-item-title>
           <v-list-item-subtitle>ADMIN</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -69,27 +74,6 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-
-    <!-- <v-app-bar app clipped-left color="blue" dense dark>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="userLogin" />
-      <v-toolbar-title
-        class="mr-12 align-center"
-        @click.prevent="$router.push('/')"
-        id="logo-app"
-      >
-        <span class="title">Fintech MarketPlace</span>
-      </v-toolbar-title>
-      <v-spacer />
-      <v-btn
-        v-if="!userLogin"
-        depressed
-        tile
-        text
-        @click.prevent="$router.push('/signin')"
-        >Sign In</v-btn
-      >
-    </v-app-bar> -->
-    <!-- </v-app> -->
   </div>
 </template>
 
@@ -101,10 +85,6 @@ export default {
       drawer: true,
       memberItems: [
         { icon: "trending_down", text: "Current-Application", to: "/listuser" }
-        // { icon: "subscriptions", text: "Subscriptions" },
-        // { icon: "history", text: "History" },
-        // { icon: "featured_play_list", text: "Playlists" },
-        // { icon: "watch_later", text: "Watch Later" }
       ],
       adminItems: [
         {
@@ -139,9 +119,6 @@ export default {
     userRole() {
       return this.$store.state.role;
     }
-  },
-  created() {
-    // this.$vuetify.theme. = true;
   }
 };
 </script>
