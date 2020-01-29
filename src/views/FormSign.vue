@@ -41,7 +41,6 @@
               />
             </div>
           </div>
-          <a href="#">Forgot Password?</a>
           <input type="submit" class="btn" value="Login" />
         </form>
       </div>
@@ -51,6 +50,8 @@
 
 <script>
 import LOGIN_ADMIN from "../graphql/loginAdmin.gql";
+import axios from "axios";
+const baseUrl = "http://localhost:3000";
 
 export default {
   name: "FormSign",
@@ -79,6 +80,27 @@ export default {
             role: dataAdmin.role,
             id: dataAdmin._id
           };
+          axios({
+            method: "GET",
+            url: baseUrl + `/admin`,
+            headers: {
+              token: localStorage.getItem("token")
+            }
+          })
+            .then(({ data }) => {
+              console.log(data, "<==");
+              let payload = {
+                isLogin: true,
+                company_name: data.company_name,
+                logoURL: data.logoURL,
+                role: data.role,
+                id: data._id
+              };
+              this.$store.commit("USER_LOGIN", payload);
+            })
+            .catch(err => {
+              console.log(err);
+            });
           this.$store.commit("USER_LOGIN", payload);
           if (dataAdmin.role === "admin") {
             this.$router.push("/fintech");

@@ -15,9 +15,11 @@
               {{ detailUser.objective }}
             </p>
           </div>
-          <div>
-            <v-btn @click="dialog = true">Update Application Decision</v-btn>
-            <v-btn @click="$router.go(-1)">Back</v-btn>
+          <div class="d-flex flex-column justify-center">
+            <v-btn depressed @click="dialog = true" color="green" class="my-5"
+              >Update Application Decision</v-btn
+            >
+            <v-btn depressed="" @click="$router.go(-1)">Back</v-btn>
           </div>
         </v-col>
         <v-col cols="8">
@@ -244,7 +246,16 @@ export default {
             });
           }
         })
-        .then(() => this.$router.push("/listuser"));
+        .then(() => {
+          this.$snotify.success(`Application Accepted`, {
+            timeout: 3000,
+            showProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            position: "leftTop"
+          });
+          this.$router.push("/listuser");
+        });
     },
     handleRejectApplication() {
       this.$apollo
@@ -262,7 +273,16 @@ export default {
             });
           }
         })
-        .then(() => this.$router.push("/listuser"));
+        .then(() => {
+          this.$snotify.success(`Application Rejected`, {
+            timeout: 3000,
+            showProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            position: "leftTop"
+          });
+          this.$router.push("/listuser");
+        });
     }
   },
   created() {

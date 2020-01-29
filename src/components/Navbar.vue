@@ -15,14 +15,12 @@
         <v-list-item-avatar>
           <img
             style="width:100%; height: 100%; object-fit: cover;"
-            :src="$store.state.logoURL"
+            :src="logoURL"
           />
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title>{{
-            $store.state.company_name || "FINTEUR"
-          }}</v-list-item-title>
+          <v-list-item-title>{{ company_name }}</v-list-item-title>
           <v-list-item-subtitle>ADMIN</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
@@ -102,6 +100,7 @@ export default {
   },
   methods: {
     handleLogout() {
+      console.log("tess logout");
       localStorage.removeItem("token");
       let payload = {
         isLogin: false,
@@ -110,6 +109,13 @@ export default {
       this.$store.commit("USER_LOGIN", payload);
       this.drawer = false;
       this.$router.push("/");
+      this.$snotify.info(`Have Nice Day`, {
+        timeout: 3000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        position: "leftTop"
+      });
     }
   },
   computed: {
@@ -118,6 +124,14 @@ export default {
     },
     userRole() {
       return this.$store.state.role;
+    },
+    company_name() {
+      console.log("triggered");
+      console.log(this.$store.state.company_name);
+      return this.$store.state.company_name;
+    },
+    logoURL() {
+      return this.$store.state.logoURL;
     }
   }
 };
