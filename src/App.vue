@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <div class="App">
-      <!-- <navbar-component /> -->
-      <!-- <v-content> -->
-      <router-view />
-      <!-- </v-content> -->
+      <navbar-component v-if="$route.path !== '/'" />
+      <v-content>
+        <router-view />
+      </v-content>
       <!-- <footer-component /> -->
       <vue-snotify></vue-snotify>
     </div>
@@ -52,10 +52,14 @@ export default {
   },
   created() {
     this.fetchCurrentAdmin();
+    if (!localStorage.getItem("token")) {
+      this.$router.push("/");
+    }
   }
 };
 </script>
-<style>
+<style lang="scss">
+@import "@/styles/index.scss";
 @import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
 
 .App {

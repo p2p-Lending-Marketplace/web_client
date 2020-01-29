@@ -3,17 +3,23 @@
     <!-- <ApolloQuery :query="require('../graphql/allFinteches.gql')">
       <template v-slot="{ result: { loading, error, data } }">
     <div v-if="data">-->
+    <div v-if="$route.path === '/fintech'" class="pl-5">
+      <h3>DASHBOARD</h3>
+    </div>
+    <div v-if="$route.path === '/fintech/add-fintech'" class="pl-5">
+      <h3>ADD FINTECH</h3>
+    </div>
     <v-container
       style="padding-top:5%;"
-      class="d-flex justify-space-around flex-wrap"
+      class="d-flex flex-wrap justify-center"
       v-if="$route.path === '/fintech'"
     >
       <!-- <v-row justify="space-around"> -->
       <v-card
         dark
         color="grey darken-2"
-        class="my-4"
-        width="344"
+        class="my-2 mx-3"
+        width="300"
         outlined
         v-for="fintech in getAllFinteches"
         :key="fintech._id"
@@ -52,9 +58,13 @@
 <script>
 // import gql from "graphql-tag";
 import FETCH_FINTECH from "../graphql/allFinteches.gql";
+import Drawer from "../components/Drawer";
 
 export default {
   name: "Fintech",
+  components: {
+    Drawer
+  },
   data() {
     return {
       allFintech: []
