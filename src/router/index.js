@@ -14,6 +14,16 @@ const routes = [
       title: "Finteur"
     }
   },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: () =>
+      import(/* webpackChunkName: "ListUser" */ "../views/Dashboard.vue"),
+    meta: {
+      auth: false,
+      title: "Dashboard | Finteur"
+    }
+  },
   // {
   //   path: "/signin",
   //   name: "FormLogin",

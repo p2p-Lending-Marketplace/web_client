@@ -1,15 +1,30 @@
 <template>
   <div class="Navbar">
     <!-- <v-app id="inspire"> -->
-    <v-navigation-drawer v-model="drawer" app clipped>
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      clipped
+      dark
+      floating
+      persistent
+      mobile-break-point="991"
+      width="260"
+    >
+      <v-list-item two-line>
+        <v-list-item-avatar>
+          <img src="https://randomuser.me/api/portraits/men/81.jpg" />
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title>FINTEUR</v-list-item-title>
+          <v-list-item-subtitle>ADMIN</v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider></v-divider>
       <!-- admin -->
       <v-list dense v-if="userRole === 'admin'">
-        <v-list-item
-          v-for="item in adminItems"
-          :key="item.text"
-          :to="item.to"
-          @click.prevent="drawer = false"
-        >
+        <v-list-item v-for="item in adminItems" :key="item.text" :to="item.to">
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -20,10 +35,10 @@
 
         <v-list-item link class="mt-5">
           <v-list-item-action>
-            <v-icon color="grey darken-1">mdi-settings</v-icon>
+            <v-icon color="white">mdi-settings</v-icon>
           </v-list-item-action>
           <v-list-item-title
-            class="grey--text text--darken-1"
+            class="white--text text--darken-1"
             @click.prevent="handleLogout"
             >Sign Out</v-list-item-title
           >
@@ -31,12 +46,7 @@
       </v-list>
       <!-- member -->
       <v-list dense v-if="userRole === 'fintech'">
-        <v-list-item
-          v-for="item in memberItems"
-          :key="item.text"
-          :to="item.to"
-          @click.prevent="drawer = false"
-        >
+        <v-list-item v-for="item in memberItems" :key="item.text" :to="item.to">
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -45,12 +55,14 @@
           </v-list-item-content>
         </v-list-item>
 
+        <!-- member -->
+
         <v-list-item link class="mt-5">
           <v-list-item-action>
             <v-icon color="grey darken-1">mdi-settings</v-icon>
           </v-list-item-action>
           <v-list-item-title
-            class="grey--text text--darken-1"
+            class="white--text text--darken-1"
             @click.prevent="handleLogout"
             >Sign Out</v-list-item-title
           >
@@ -58,7 +70,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app clipped-left color="blue" dense dark>
+    <!-- <v-app-bar app clipped-left color="blue" dense dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="userLogin" />
       <v-toolbar-title
         class="mr-12 align-center"
@@ -76,7 +88,7 @@
         @click.prevent="$router.push('/signin')"
         >Sign In</v-btn
       >
-    </v-app-bar>
+    </v-app-bar> -->
     <!-- </v-app> -->
   </div>
 </template>
@@ -86,7 +98,7 @@ export default {
   name: "Navbar",
   data() {
     return {
-      drawer: false,
+      drawer: true,
       memberItems: [
         { icon: "trending_down", text: "Current-Application", to: "/listuser" }
         // { icon: "subscriptions", text: "Subscriptions" },

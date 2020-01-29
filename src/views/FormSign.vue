@@ -8,6 +8,8 @@
       <div class="login-content">
         <form @submit.prevent="handleSubmit">
           <img src="../assets/images/formlogin/avatar.svg" />
+          <!-- <img src="../assets/images/formlogin/logo_transparent.png" /> -->
+
           <h2 class="title">FINTEUR</h2>
           <div class="input-div one">
             <div class="i">

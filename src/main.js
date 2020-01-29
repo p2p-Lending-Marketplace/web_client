@@ -7,7 +7,10 @@ import Snotify from "vue-snotify";
 import "vue-snotify/styles/material.css";
 import { createProvider } from "./vue-apollo";
 import ImageMagnifier from "vue-image-magnifier";
+import VueMaterial from "vue-material";
+import "vue-material/dist/vue-material.min.css";
 
+Vue.use(VueMaterial);
 Vue.use(Snotify);
 Vue.use(ImageMagnifier);
 Vue.config.productionTip = false;
