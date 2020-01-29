@@ -301,7 +301,6 @@ export default {
   watch: {
     dialog(val) {
       if (val === false) {
-        console.log("triggered");
         this.$apollo
           .query({
             query: FETCH_USER,

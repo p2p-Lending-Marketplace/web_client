@@ -1,19 +1,16 @@
 <template>
   <div class="ListUser">
-    <div class="pl-5">
-      <h3>DASHBOARD</h3>
-    </div>
     <v-container style="padding:30px;">
       <v-card
         class="d-flex flex-column align-center"
-        style="padding-top: 2rem; margin-top:2rem; background-color:#f6f4e6;"
+        style="padding-top: 2.5rem; margin-top:2rem; background-color:#f6f4e6;"
       >
         <v-card
           color="orange"
           style="width:95%; position:absolute; top:-2rem; border-radius:8px;"
         >
           <v-card-text>
-            <div class="text--white">User Application</div>
+            <div class="font-weight-black title">Applications</div>
           </v-card-text>
         </v-card>
         <v-data-table
@@ -21,7 +18,7 @@
           :headers="headers"
           :items="items"
           hide-default-footer
-          style="width:100%;background-color:#f6f4e6; "
+          style="width:100%; background-color:#f6f4e6; "
         >
           <template slot="headerCell" slot-scope="{ header }">
             <span
@@ -93,11 +90,13 @@ export default {
           })
           .then(
             ({ data }) =>
-              (this.items = data.getAllFintechApplications.map(item => ({
-                id: item._id,
-                name: item.user_id.name || "User name",
-                amount: item.user_id.amount || 0
-              })))
+              (this.items = data.getAllFintechApplications.map(item => {
+                return {
+                  id: item._id,
+                  name: item.user_id ? item.user_id.name : "User name",
+                  amount: item.user_id ? item.user_id.amount : 0
+                };
+              }))
           );
     }
   },
@@ -113,11 +112,13 @@ export default {
         })
         .then(
           ({ data }) =>
-            (this.items = data.getAllFintechApplications.map(item => ({
-              id: item._id,
-              name: item.user_id.name || "User name",
-              amount: item.user_id.amount || 0
-            })))
+            (this.items = data.getAllFintechApplications.map(item => {
+              return {
+                id: item._id,
+                name: item.user_id ? item.user_id.name : "User name",
+                amount: item.user_id ? item.user_id.amount : 0
+              };
+            }))
         );
     }
   }

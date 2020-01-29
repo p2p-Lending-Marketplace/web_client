@@ -234,8 +234,6 @@ export default {
         });
     },
     submitForm() {
-      console.log("triggering");
-      console.log(this.image);
       this.$apollo
         .mutate({
           mutation: ADD_FINTECH,

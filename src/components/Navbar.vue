@@ -100,7 +100,6 @@ export default {
   },
   methods: {
     handleLogout() {
-      console.log("tess logout");
       localStorage.removeItem("token");
       let payload = {
         isLogin: false,
@@ -126,8 +125,6 @@ export default {
       return this.$store.state.role;
     },
     company_name() {
-      console.log("triggered");
-      console.log(this.$store.state.company_name);
       return this.$store.state.company_name;
     },
     logoURL() {

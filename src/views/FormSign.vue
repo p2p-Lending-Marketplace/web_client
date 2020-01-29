@@ -72,7 +72,6 @@ export default {
           }
         })
         .then(({ data }) => {
-          console.log(data);
           let dataAdmin = data.loginAdmin;
           localStorage.setItem("token", dataAdmin.token);
           let payload = {
@@ -88,7 +87,6 @@ export default {
             }
           })
             .then(({ data }) => {
-              console.log(data, "<==");
               let payload = {
                 isLogin: true,
                 company_name: data.company_name,
@@ -104,7 +102,6 @@ export default {
           this.$store.commit("USER_LOGIN", payload);
           if (dataAdmin.role === "admin") {
             this.$router.push("/fintech");
-            console.log("masuk sini");
           } else {
             this.$router.push("/listuser");
           }

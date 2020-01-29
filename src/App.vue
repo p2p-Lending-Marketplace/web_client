@@ -37,7 +37,6 @@ export default {
         }
       })
         .then(({ data }) => {
-          console.log(data, "<==");
           let payload = {
             isLogin: true,
             company_name: data.company_name,
