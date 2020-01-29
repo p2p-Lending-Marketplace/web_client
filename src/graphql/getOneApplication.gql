@@ -2,6 +2,7 @@ query($token: String!, $id: ID) {
   getOneApplication(token: $token, id: $id) {
     _id
     user_id {
+      _id
       name
       email
       phone_number
@@ -15,10 +16,12 @@ query($token: String!, $id: ID) {
       date_of_birth
       place_of_birth
     }
-    fintech_id
+    fintech_id {
+      _id
+      company_name
+      logoURL
+    }
     amount
-    logoURL
-    company_name
     loan_term
     objective
     decision

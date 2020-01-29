@@ -12,16 +12,16 @@
 </template>
 
 <script>
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+// import Navbar from "./components/Navbar";
+// import Footer from "./components/Footer";
 import axios from "axios";
 const baseUrl = "http://localhost:3000";
 
 export default {
   name: "App",
   components: {
-    "navbar-component": Navbar,
-    "footer-component": Footer
+    // "navbar-component": Navbar
+    // "footer-component": Footer
   },
 
   data: () => ({

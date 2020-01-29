@@ -133,9 +133,9 @@
 </template>
 
 <script>
-import FETCH_USER from "../graphql/oneUser.gql";
+import FETCH_USER from "../graphql/getOneApplication.gql";
 // import FETCH_USERS from "../graphql/allUser.gql";
-import UPDATE_DECISION from "../graphql/updateAppDecision.gql";
+import UPDATE_DECISION from "../graphql/updateApplicationDecision.gql";
 
 export default {
   name: "DetailUser",
@@ -163,10 +163,9 @@ export default {
             decision: "accepted"
           },
           update: (store, { data: { updateApplicationDecision } }) => {
-            console.log(updateApplicationDecision);
             store.writeQuery({
               query: FETCH_USER,
-              data: updateApplicationDecision
+              data: { getOneApplication: updateApplicationDecision }
             });
           }
         })
@@ -182,10 +181,9 @@ export default {
             decision: "rejected"
           },
           update: (store, { data: { updateApplicationDecision } }) => {
-            console.log(updateApplicationDecision);
             store.writeQuery({
               query: FETCH_USER,
-              data: updateApplicationDecision
+              data: { getOneApplication: updateApplicationDecision }
             });
           }
         })

@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import FETCH_USERS from "../graphql/allUser.gql";
+import FETCH_USERS from "../graphql/getAllFintechApplications.gql";
 
 export default {
   name: "ListUser",
@@ -53,9 +53,6 @@ export default {
     }
   },
   watch: {
-    tes(val) {
-      console.log("makan");
-    },
     fetchAdminId(val) {
       if (val)
         this.$apollo
@@ -84,12 +81,6 @@ export default {
         .then(
           ({ data }) => (this.getAllUsers = data.getAllFintechApplications)
         );
-    }
-  },
-  computed: {
-    fetchAdminId() {
-      console.log("tesss");
-      return this.$store.state.id;
     }
   }
 };

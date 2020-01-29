@@ -16,10 +16,12 @@ query($fintechID: String!, $token: String!) {
       date_of_birth
       place_of_birth
     }
-    fintech_id
+    fintech_id {
+      _id
+      company_name
+      logoURL
+    }
     amount
-    logoURL
-    company_name
     loan_term
     objective
     decision
