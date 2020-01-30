@@ -1,6 +1,5 @@
 <template>
   <div class="DetailUser" v-if="detailUser">
-  <div class="DetailUser">
     <div class="pl-5">
       <h3>{{ detailUser.user_id.name }}</h3>
     </div>
@@ -16,9 +15,7 @@
           </div>
           <hr style="width:100%; margin:3rem 0;" />
           <div id="objective" class="text-center">
-            <p>
-              {{ detailUser.objective }}
-            </p>
+            <p>{{ detailUser.objective }}</p>
           </div>
           <div class="d-flex flex-column justify-center">
             <v-btn
@@ -123,16 +120,16 @@
             >
               <div>
                 <img
-                  :src="detailUser.user_id.id_url" 
-                  alt="profile" 
-                  style="width:250px; height:150px; border:1px solid black;" 
+                  :src="detailUser.user_id.id_url"
+                  alt="profile"
+                  style="width:250px; height:150px; border:1px solid black;"
                 />
                 <h4>ID Photo</h4>
               </div>
               <div v-viewer>
-                <img 
-                  :src="detailUser.user_id.salary_slip_url" 
-                  alt="profile" 
+                <img
+                  :src="detailUser.user_id.salary_slip_url"
+                  alt="profile"
                   style="width:250px; height:150px; border:1px solid black;"
                 />
                 <h4>Salary Slip</h4>
@@ -191,7 +188,6 @@
         <v-card-text>
           <v-container>
             <v-row v-if="detailUser">
-            <v-row>
               <v-col cols="12">
                 <v-text-field label="Final Amount" required v-model.number="detailUser.amount"></v-text-field>
               </v-col>
@@ -223,11 +219,6 @@ export default {
     return {
       detailUser: null,
       dialog: false
-      // imageZoom: "https://i.ytimg.com/vi/e_bhsQyU3V4/maxresdefault.jpg",
-      // photo_url:
-      //   "https://cdn.idntimes.com/content-images/duniaku/post/20200116/fakta-itachi-uchiha-0-bdbc384f4ad79e9798a65e4215b30520_600x400.png",
-      // slip_url:
-      //   "https://i.pinimg.com/originals/c0/c2/42/c0c2420a0b1ead9d1530dfbd8be61f31.jpg"
     };
   },
   methods: {
