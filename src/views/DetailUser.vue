@@ -1,5 +1,6 @@
 <template>
   <div class="DetailUser" v-if="detailUser">
+  <div class="DetailUser">
     <div class="pl-5">
       <h3>{{ detailUser.user_id.name }}</h3>
     </div>
@@ -7,7 +8,11 @@
       <v-row>
         <v-col cols="4" class="d-flex flex-column align-center">
           <div>
-            <img :src="detailUser.user_id.photo_url" alt="Profile photo" />
+            <img
+              :src="detailUser.user_id.photo_url"
+              alt="Profile photo"
+              style="width:300px; max-height:500px; border:1px solid black;"
+            />
           </div>
           <hr style="width:100%; margin:3rem 0;" />
           <div id="objective" class="text-center">
@@ -16,10 +21,13 @@
             </p>
           </div>
           <div class="d-flex flex-column justify-center">
-            <v-btn depressed @click="dialog = true" color="green" class="my-5"
-              >Update Application Decision</v-btn
-            >
-            <v-btn depressed="" @click="$router.go(-1)">Back</v-btn>
+            <v-btn
+              depressed
+              @click="dialog = true"
+              color="green"
+              class="my-5"
+            >Update Application Decision</v-btn>
+            <v-btn depressed @click="$router.go(-1)">Back</v-btn>
           </div>
         </v-col>
         <v-col cols="8">
@@ -114,11 +122,19 @@
               v-viewer
             >
               <div>
-                <img :src="detailUser.user_id.id_url" alt="profile" />
+                <img
+                  :src="detailUser.user_id.id_url" 
+                  alt="profile" 
+                  style="width:250px; height:150px; border:1px solid black;" 
+                />
                 <h4>ID Photo</h4>
               </div>
               <div v-viewer>
-                <img :src="detailUser.user_id.salary_slip_url" alt="profile" />
+                <img 
+                  :src="detailUser.user_id.salary_slip_url" 
+                  alt="profile" 
+                  style="width:250px; height:150px; border:1px solid black;"
+                />
                 <h4>Salary Slip</h4>
               </div>
             </div>
@@ -175,34 +191,21 @@
         <v-card-text>
           <v-container>
             <v-row v-if="detailUser">
+            <v-row>
               <v-col cols="12">
-                <v-text-field
-                  label="Final Amount"
-                  required
-                  v-model.number="detailUser.amount"
-                ></v-text-field>
+                <v-text-field label="Final Amount" required v-model.number="detailUser.amount"></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field
-                  label="Loan Term"
-                  required
-                  v-model.number="detailUser.loan_term"
-                ></v-text-field>
+                <v-text-field label="Loan Term" required v-model.number="detailUser.loan_term"></v-text-field>
               </v-col>
             </v-row>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="handleRejectApplication"
-            >Reject Application</v-btn
-          >
-          <v-btn color="blue darken-1" text @click="handleAcceptApplication"
-            >Accept Application</v-btn
-          >
-          <v-btn color="blue darken-1" text @click="dialog = false"
-            >Cancel</v-btn
-          >
+          <v-btn color="blue darken-1" text @click="handleRejectApplication">Reject Application</v-btn>
+          <v-btn color="blue darken-1" text @click="handleAcceptApplication">Accept Application</v-btn>
+          <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
