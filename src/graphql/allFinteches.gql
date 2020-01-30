@@ -1,10 +1,13 @@
-query getAllFinteches{
-    getAllFinteches{
-        _id
-        company_name
-        description
-        min_interest
-        max_interest
-        logoURL
-    }
+query getAllFinteches {
+  getAllFinteches {
+    _id
+    company_name
+    description
+    min_interest
+    max_interest
+    logoURL
+    total_application
+    avg_credit_score
+    percent_acceptance
+  }
 }

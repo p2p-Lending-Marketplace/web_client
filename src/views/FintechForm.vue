@@ -100,6 +100,33 @@
               outlined
               dense
             ></v-text-field>
+            <v-text-field
+              light
+              label="Total Application"
+              v-model.number="totalApplication"
+              :rules="totalApplicationRules"
+              clearable
+              outlined
+              dense
+            ></v-text-field>
+            <v-text-field
+              light
+              label="AVG Credit Score"
+              v-model="avgCreditScore"
+              :rules="avgCreditScoreRules"
+              clearable
+              outlined
+              dense
+            ></v-text-field>
+            <v-text-field
+              light
+              label="Percent Acceptance"
+              v-model.number="percentAcceptance"
+              :rules="percentAcceptanceRules"
+              clearable
+              outlined
+              dense
+            ></v-text-field>
             <div v-if="add">
               <v-btn color="success" @click="validate">Submit</v-btn>
               <v-btn class="ml-3" color="warning" @click="resetForm"
@@ -169,9 +196,26 @@ export default {
           "Max Interest cannot have negative value and must greater than 0",
         v =>
           (v && v <= 100) || "Max Interest cannot have value greater than 100"
+      ],
+      totalApplication: 0,
+      totalApplicationRules: [
+        v => !!v || "Total Application is required",
+        v =>
+          (v && v >= 0) ||
+          "Total Application cannot have negative value and must greater than 0"
+      ],
+      avgCreditScore: "",
+      avgCreditScoreRules: [v => !!v || "AVG Credit Score is required"],
+      percentAcceptance: 0,
+      percentAcceptanceRules: [
+        v => !!v || "Percent Acceptance is required",
+        v =>
+          (v && v >= 0) ||
+          "Percent Acceptance cannot have negative value and must greater than 0"
       ]
     };
   },
+
   methods: {
     resetForm() {
       this.$refs.form.reset();
@@ -194,7 +238,10 @@ export default {
             description: this.description,
             min_interest: this.minInterest,
             max_interest: this.maxInterest,
-            logoURL: this.image
+            logoURL: this.image,
+            total_application: this.totalApplication,
+            avg_credit_score: this.avgCreditScore,
+            percent_acceptance: this.percentAcceptance
           },
           update: (store, { data: { updateFintechData } }) => {
             // Read the data from our cache for this query.
@@ -245,7 +292,10 @@ export default {
             description: this.description,
             min_interest: this.minInterest,
             max_interest: this.maxInterest,
-            logoURL: this.image
+            logoURL: this.image,
+            total_application: this.totalApplication,
+            avg_credit_score: this.avgCreditScore,
+            percent_acceptance: this.percentAcceptance
           },
           update: (store, { data: { addNewFintech } }) => {
             // Read the data from our cache for this query.
@@ -310,6 +360,9 @@ export default {
           this.minInterest = fintech.min_interest;
           this.maxInterest = fintech.max_interest;
           this.image = fintech.logoURL;
+          this.totalApplication = fintech.total_application;
+          this.avgCreditScore = fintech.avg_credit_score;
+          this.percentAcceptance = fintech.percent_acceptance;
         },
         skip() {
           return !this.$route.params.id;

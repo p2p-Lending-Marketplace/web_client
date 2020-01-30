@@ -18,12 +18,9 @@
             <p>{{ detailUser.objective }}</p>
           </div>
           <div class="d-flex flex-column justify-center">
-            <v-btn
-              depressed
-              @click="dialog = true"
-              color="green"
-              class="my-5"
-            >Update Application Decision</v-btn>
+            <v-btn depressed @click="dialog = true" color="green" class="my-5"
+              >Update Application Decision</v-btn
+            >
             <v-btn depressed @click="$router.go(-1)">Back</v-btn>
           </div>
         </v-col>
@@ -94,7 +91,7 @@
               <p>Salary</p>
             </v-col>
             <v-col>
-              <h4>{{ detailUser.user_id.salary }}</h4>
+              <h4>{{ convertRupiah(detailUser.user_id.salary) }}</h4>
             </v-col>
           </v-row>
           <v-row>
@@ -147,7 +144,7 @@
               <p>Amount</p>
             </v-col>
             <v-col>
-              <h4>{{ detailUser.amount }}</h4>
+              <h4>{{ convertRupiah(detailUser.amount) }}</h4>
             </v-col>
           </v-row>
           <v-row>
@@ -189,19 +186,33 @@
           <v-container>
             <v-row v-if="detailUser">
               <v-col cols="12">
-                <v-text-field label="Final Amount" required v-model.number="detailUser.amount"></v-text-field>
+                <v-text-field
+                  label="Final Amount"
+                  required
+                  v-model.number="detailUser.amount"
+                ></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Loan Term" required v-model.number="detailUser.loan_term"></v-text-field>
+                <v-text-field
+                  label="Loan Term"
+                  required
+                  v-model.number="detailUser.loan_term"
+                ></v-text-field>
               </v-col>
             </v-row>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="handleRejectApplication">Reject Application</v-btn>
-          <v-btn color="blue darken-1" text @click="handleAcceptApplication">Accept Application</v-btn>
-          <v-btn color="blue darken-1" text @click="dialog = false">Cancel</v-btn>
+          <v-btn color="blue darken-1" text @click="handleRejectApplication"
+            >Reject Application</v-btn
+          >
+          <v-btn color="blue darken-1" text @click="handleAcceptApplication"
+            >Accept Application</v-btn
+          >
+          <v-btn color="blue darken-1" text @click="dialog = false"
+            >Cancel</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -210,8 +221,8 @@
 
 <script>
 import FETCH_USER from "../graphql/getOneApplication.gql";
-// import FETCH_USERS from "../graphql/allUser.gql";
 import UPDATE_DECISION from "../graphql/updateApplicationDecision.gql";
+import format from "rupiah-format";
 
 export default {
   name: "DetailUser",
@@ -222,6 +233,9 @@ export default {
     };
   },
   methods: {
+    convertRupiah(item) {
+      return format.convert(item);
+    },
     handleAcceptApplication() {
       this.$apollo
         .mutate({
