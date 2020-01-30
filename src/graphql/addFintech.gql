@@ -7,6 +7,9 @@ mutation addNewFintech(
   $min_interest: Float!
   $max_interest: Float!
   $logoURL: String!
+  $total_application: Int
+  $avg_credit_score: String
+  $percent_acceptance: Float
 ) {
   addNewFintech(
     token: $token
@@ -17,6 +20,9 @@ mutation addNewFintech(
     min_interest: $min_interest
     max_interest: $max_interest
     logoURL: $logoURL
+    total_application: $total_application
+    avg_credit_score: $avg_credit_score
+    percent_acceptance: $percent_acceptance
   ) {
     _id
     company_name
@@ -24,5 +30,8 @@ mutation addNewFintech(
     min_interest
     max_interest
     logoURL
+    total_application
+    avg_credit_score
+    percent_acceptance
   }
 }
