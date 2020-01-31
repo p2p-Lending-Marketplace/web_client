@@ -51,7 +51,7 @@
 <script>
 import LOGIN_ADMIN from "../graphql/loginAdmin.gql";
 import axios from "axios";
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://34.87.75.195";
 
 export default {
   name: "FormSign",
