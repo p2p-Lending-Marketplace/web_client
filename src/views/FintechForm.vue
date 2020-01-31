@@ -4,13 +4,7 @@
       <v-row justify="center" align="center">
         <v-col cols="5" class="text-center" dark style="margin-top:7%;">
           <p style="color:black;">Upload Image</p>
-          <v-img
-            contain
-            class="image-upload mx-auto"
-            height="250"
-            width="250"
-            :src="image"
-          ></v-img>
+          <v-img contain class="image-upload mx-auto" height="250" width="250" :src="image"></v-img>
           <v-file-input
             id="fileInput"
             light
@@ -30,15 +24,12 @@
             :loading="loading"
           >
             <template v-slot:selection="{ index, text }">
-              <v-chip v-if="index < 2" color="primary" dark label small>
-                {{ text }}
-              </v-chip>
+              <v-chip v-if="index < 2" color="primary" dark label small>{{ text }}</v-chip>
 
               <span
                 v-else-if="index === 2"
                 class="overline grey--text text--darken-3 mx-2"
-                >+{{ files.length - 2 }} File(s)</span
-              >
+              >+{{ files.length - 2 }} File(s)</span>
             </template>
           </v-file-input>
         </v-col>
@@ -129,15 +120,11 @@
             ></v-text-field>
             <div v-if="add">
               <v-btn color="success" @click="validate">Submit</v-btn>
-              <v-btn class="ml-3" color="warning" @click="resetForm"
-                >Reset Form</v-btn
-              >
+              <v-btn class="ml-3" color="warning" @click="resetForm">Reset Form</v-btn>
             </div>
             <div v-if="!add">
               <v-btn color="success" @click="editFintech">Edit</v-btn>
-              <v-btn class="ml-3" color="warning" @click="resetForm"
-                >Reset Form</v-btn
-              >
+              <v-btn class="ml-3" color="warning" @click="resetForm">Reset Form</v-btn>
               <!-- <v-btn class="ml-3" dark color="red" @click="deleteProduct">Delete</v-btn> -->
             </div>
           </v-form>
@@ -385,7 +372,7 @@ export default {
 <style scoped>
 .AddFintech {
   background-color: white;
-  height: 100vh;
+  height: 130vh;
   width: 100%;
 }
 .image-upload {
